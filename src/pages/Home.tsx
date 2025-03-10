@@ -10,6 +10,7 @@ import SendReceiveModal from '@/components/SendReceiveModal';
 
 const Home = () => {
   const [sendReceiveModalOpen, setSendReceiveModalOpen] = useState(false);
+  const [initialTab, setInitialTab] = useState<'send' | 'receive'>('send');
   
   // Mock data
   const balance = 231.45;
@@ -53,7 +54,13 @@ const Home = () => {
     { id: 2, message: 'Your transfer of 24.5 ETN has been confirmed', unread: false }
   ];
 
-  const openSendReceiveModal = () => {
+  const openSendModal = () => {
+    setInitialTab('send');
+    setSendReceiveModalOpen(true);
+  };
+
+  const openReceiveModal = () => {
+    setInitialTab('receive');
     setSendReceiveModalOpen(true);
   };
 
@@ -82,14 +89,14 @@ const Home = () => {
               <div className="flex justify-between mt-4">
                 <Button 
                   className="flex-1 mr-2 bg-etn hover:bg-etn-dark"
-                  onClick={openSendReceiveModal}
+                  onClick={openSendModal}
                 >
                   <ArrowUpRight className="mr-2 h-4 w-4" />
                   Send
                 </Button>
                 <Button 
                   className="flex-1 ml-2 bg-gray-800 hover:bg-gray-900 dark:bg-gray-700 dark:hover:bg-gray-800"
-                  onClick={openSendReceiveModal}
+                  onClick={openReceiveModal}
                 >
                   <ArrowDownLeft className="mr-2 h-4 w-4" />
                   Receive
