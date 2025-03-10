@@ -1,13 +1,16 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDownLeft, ArrowUpRight, Bell, WalletCards } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import TransactionItem from '@/components/TransactionItem';
 import Layout from '@/components/Layout';
+import SendReceiveModal from '@/components/SendReceiveModal';
 
 const Home = () => {
+  const [sendReceiveModalOpen, setSendReceiveModalOpen] = useState(false);
+  
   // Mock data
   const balance = 231.45;
   const transactions = [
@@ -50,6 +53,14 @@ const Home = () => {
     { id: 2, message: 'Your transfer of 24.5 ETN has been confirmed', unread: false }
   ];
 
+  const openSendReceiveModal = () => {
+    setSendReceiveModalOpen(true);
+  };
+
+  const closeSendReceiveModal = () => {
+    setSendReceiveModalOpen(false);
+  };
+
   return (
     <Layout>
       <div className="container px-4 pt-8 pb-20">
@@ -69,11 +80,17 @@ const Home = () => {
             </CardHeader>
             <CardContent>
               <div className="flex justify-between mt-4">
-                <Button className="flex-1 mr-2 bg-etn hover:bg-etn-dark">
+                <Button 
+                  className="flex-1 mr-2 bg-etn hover:bg-etn-dark"
+                  onClick={openSendReceiveModal}
+                >
                   <ArrowUpRight className="mr-2 h-4 w-4" />
                   Send
                 </Button>
-                <Button className="flex-1 ml-2 bg-gray-800 hover:bg-gray-900 dark:bg-gray-700 dark:hover:bg-gray-800">
+                <Button 
+                  className="flex-1 ml-2 bg-gray-800 hover:bg-gray-900 dark:bg-gray-700 dark:hover:bg-gray-800"
+                  onClick={openSendReceiveModal}
+                >
                   <ArrowDownLeft className="mr-2 h-4 w-4" />
                   Receive
                 </Button>
@@ -135,6 +152,13 @@ const Home = () => {
           ))}
         </motion.div>
       </div>
+
+      {/* Send & Receive Modal */}
+      <SendReceiveModal 
+        isOpen={sendReceiveModalOpen} 
+        onClose={closeSendReceiveModal}
+        currentBalance={balance}
+      />
     </Layout>
   );
 };
