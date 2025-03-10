@@ -167,7 +167,7 @@ const SecretPhraseGrid: React.FC<SecretPhraseGridProps> = ({ mode, onComplete })
           onClick={handleComplete}
           disabled={mode === 'verify' && selectedWords.filter(Boolean).length !== 12}
         >
-          {mode === 'create' ? 'I've Saved My Phrase' : 'Verify Phrase'}
+          {mode === 'create' ? 'I\'ve Saved My Phrase' : 'Verify Phrase'}
           <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
       </motion.div>
